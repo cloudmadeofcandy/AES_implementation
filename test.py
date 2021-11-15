@@ -9,13 +9,6 @@ circulant_MDS= [[2, 3, 1, 1],
                 [1, 1, 2, 3],
                 [3, 1, 1, 2]]
 
-inter = np.array(circulant_MDS)
-# inter = inter.T
-# print(inter)
-
-listarr = inter.tolist()
-hrllo = np.transpose(circulant_MDS)
-
-print(circulant_MDS[1:4][0:1])
+key_array = [[], [], [], []]
 
 print("{:0x}".format(0x7e ^ 0x84 ^ 0x00))
