@@ -1,4 +1,17 @@
 from aesUtils import *
+from Sbox import sbox
+
+def subBytes(r):
+    for i in range(0, 4):
+        for j in range(0, 4):
+            r[i][j] = sbox[r[i][j]]
+    return r
+
+def shiftRows(r):
+    r[1][0], r[1][1], r[1][2], r[1][3] = r[1][1], r[1][2], r[1][3], r[1][0]
+    r[2][0], r[2][1], r[2][2], r[2][3] = r[2][2], r[2][3], r[2][0], r[2][1]
+    r[3][0], r[3][1], r[3][2], r[3][3] = r[3][3], r[3][0], r[3][1], r[3][2]
+    return r
 
 def gMixColumn(r):
 
