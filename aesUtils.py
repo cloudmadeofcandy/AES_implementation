@@ -1,3 +1,6 @@
+import numpy as np
+from Sbox import sbox, rbox, rcon
+
 def mul2(r):
     b = [0 for i in range(4)]
     for c in range(0, 4):
@@ -52,3 +55,43 @@ def mul14(r):
         b[c] ^= r[c]
     b = mul2(b)
     return b
+
+def rotWord(r):
+    r[0], r[1], r[2], r[3] = r[1], r[2], r[3], r[0]
+    return r
+
+def keyExpansion(key):
+    retkey = []
+    retkey.append(list.copy(key))
+    for i in range(0, 10):
+        newkey = [];
+        interkey = list.copy(retkey[-1]) # 4x4 array
+        interkey = np.transpose(interkey)
+        interkey = interkey.tolist()
+        rconarr = [rcon[i], 0, 0, 0]
+        workingarr = list.copy(interkey[-1]) # 1x4 array
+        workingarr = rotWord(workingarr)
+        for q in range(0, 4):
+            workingarr[q] = sbox[workingarr[q]]
+        for j in range(0, len(workingarr)):
+            workingarr[j] = workingarr[j] ^ interkey[0][j] ^ rconarr[j]
+        newkey.append(list.copy(workingarr))
+        for k in range(1, 4):
+            for j in range(0, 4):
+                workingarr[j] = workingarr[j] ^ interkey[k][j]
+            newkey.append(list.copy(workingarr))
+        newkey = np.transpose(newkey)
+        newkey = newkey.tolist()
+        retkey.append(newkey)
+        
+        # FOR PRINTING
+
+        # for v in range(0, 4):
+        #     for u in range(0, 4):
+        #         print("{:0x}".format(newkey[v][u]), end=" ");
+        #     print()
+        # print("______________________")
+
+    return retkey
+    
+
