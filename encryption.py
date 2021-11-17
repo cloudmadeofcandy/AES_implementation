@@ -31,3 +31,19 @@ def gMixColumn(r):
     r1[3] = (b[3] ^ a[2] ^ a[1] ^ b[0] ^ a[0]) % 256
 
     return r1
+
+def gMixColumns(d):
+    
+    r = list.copy(d)
+    r = np.transpose(r)
+    r = r.tolist()
+    r1 = []
+
+    for i in range(0, 4):
+        r[i] = gMixColumn(r[i])
+        r1.append(r[i])
+    
+    r1 = np.transpose(r1)
+    r1 = r1.tolist()
+    return r1
+
