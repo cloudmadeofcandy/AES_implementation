@@ -1,6 +1,8 @@
 # AES_implementation
-AES Encryption and Decryption implementation for CT303 - Basis of Information Integrity and Security - Academy of Cryptography Techniques
-To use the program, please pay attention to 2 functions/APIs in file AES.py
+AES Encryption and Decryption implementation for CT303 - Basis of Information Integrity and Security - Academy of Cryptography Techniques.
+
+To use the program, please pay attention to 2 functions/APIs in file AES.py.
+
 The function aesEncrypt(state, cypherkey), takes 2 arguments: 
   - state: a 4 x 4 matrix created from the plaintext.
   - cypherkey: another 4 x 4 matrix, serves as the input for the keyExpansion stage.
