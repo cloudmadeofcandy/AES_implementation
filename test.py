@@ -1,3 +1,4 @@
+
 from encryption import *
 import encryption as en
 import decryption as de
@@ -134,10 +135,20 @@ state = [[0x32, 0x88, 0x31, 0xe0],
          [0xf6, 0x30, 0x98, 0x07],
          [0xa8, 0x8d, 0xa2, 0x34]]
 
+copyofstate = [[0x32, 0x88, 0x31, 0xe0],
+         [0x43, 0x5a, 0x31, 0x37],
+         [0xf6, 0x30, 0x98, 0x07],
+         [0xa8, 0x8d, 0xa2, 0x34]]
+
 cypherkey = [[0x2b, 0x28, 0xab, 0x09],
              [0x7e, 0xae, 0xf7, 0xcf],
              [0x15, 0xd2, 0x15, 0x4f],
              [0x16, 0xa6, 0x88, 0x3c]]
+
+cipherstate = [[0x39, 0x02, 0xdc, 0x19],
+               [0x25, 0xdc, 0x11, 0x6a],
+               [0x84, 0x09, 0x85, 0x0b],
+               [0x1d, 0xfb, 0x97, 0x32]]
 
 # roundKey = keyExpansion(cypherkey) # 11 x (4 x 4) array
 
@@ -154,11 +165,11 @@ cypherkey = [[0x2b, 0x28, 0xab, 0x09],
 #     for i in range(0, 4):
 #         for j in range(0, 4):
 #             result[i][j] = result[i][j] ^ roundKey[q][i][j]
-#     for v in range(0, 4):
-#         for u in range(0, 4):
-#             print("{:0x}".format(result[v][u]), end=" ");
-#         print()
-#     print("___________________")
+    # for v in range(0, 4):
+    #     for u in range(0, 4):
+    #         print("{:0x}".format(result[v][u]), end=" ");
+    #     print()
+    # print("___________________")
 
 # result = subBytes(result)
 # result = shiftRows(result)
@@ -166,10 +177,36 @@ cypherkey = [[0x2b, 0x28, 0xab, 0x09],
 #     for j in range(0, 4):
 #         result[i][j] = result[i][j] ^ roundKey[10][i][j]
 
-result = aes.aesEncrypt(state, cypherkey)
+# result = aes.aesEncrypt(state, cypherkey)
+
+result = aes.aesDecrypt(cipherstate, cypherkey)
 
 for v in range(0, 4):
     for u in range(0, 4):
         print("{:0x}".format(result[v][u]), end=" ");
     print()
 print("___________________")
+
+# for v in range(0, 4):
+#     for u in range(0, 4):
+#         print("{:0x}".format(state[v][u]), end=" ");
+#     print()
+# print("___________________")
+
+# d = list.copy(state)
+# d = en.gMixColumns(d)
+# d = de.gInvMixColumns(d)
+
+# for v in range(0, 4):
+#     for u in range(0, 4):
+#         print("{:0x}".format(d[v][u]), end=" ");
+#     print()
+# print("___________________")
+
+# print(copyofstate == d)
+
+# for v in range(0, 4):
+#     for u in range(0, 4):
+#         print("{:0x}".format(copyofstate[v][u]), end=" ");
+#     print()
+# print("___________________")

@@ -28,3 +28,18 @@ def gInvMixColumn(r):
     ret[3] = (b[0] ^ c[1] ^ a[2] ^ d[3]) % 256
 
     return ret
+
+def gInvMixColumns(d):
+    
+    r = list.copy(d)
+    r = np.transpose(r)
+    r = r.tolist()
+    r1 = []
+
+    for i in range(0, 4):
+        r[i] = gInvMixColumn(r[i])
+        r1.append(r[i])
+    
+    r1 = np.transpose(r1)
+    r1 = r1.tolist()
+    return r1
