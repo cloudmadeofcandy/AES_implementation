@@ -1,58 +1,79 @@
-
-from encryption import gMixColumns, shiftRows, subBytes
-from decryption import gInvMixColumns, invShiftRows, invSubBytes
-from aesUtils import keyExpansion128, rotWord
-from Sbox import sbox, rbox, rcon
+from aesUtils import matToString, stringToMat
+import encryption as en
+import decryption as de
 import numpy as np
 
-
-def aesEncrypt128(state, cypherkey):
-    roundKey = keyExpansion128(cypherkey) # 11 x (4 x 4) array
-
-    result = list.copy(state)
-
-    for i in range(0, 4):
-        for j in range(0, 4):
-            result[i][j] = state[i][j] ^ roundKey[0][i][j]
-
-    for q in range(1, 10):
-        result = subBytes(result)
-        result = shiftRows(result)
-        result = gMixColumns(result)
-        for i in range(0, 4):
-            for j in range(0, 4):
-                result[i][j] = result[i][j] ^ roundKey[q][i][j]
-
-    result = subBytes(result)
-    result = shiftRows(result)
-    for i in range(0, 4):
-        for j in range(0, 4):
-            result[i][j] = result[i][j] ^ roundKey[10][i][j]
-
-    return result
-
-def aesDecrypt128(state, cypherkey):
+def encrypt(state = None, key = None):
     
-    roundKey = keyExpansion128(cypherkey) # 11 x (4 x 4) array
+    ret = ""
 
-    result = list.copy(state)
+    while(state == None):
+        print("Please insert your plaintext?")
+        state = input()
+    
+    while(key == None or not (len(key) == 16 or len(key) == 32 or len(key) == 24)):
+        print("Please insert your cipher key? Your key must be of length 16, 24 or 32")
+        key = input()
+    
+    lenkey = len(key)
 
-    for i in range(0, 4):
-        for j in range(0, 4):
-            result[i][j] = state[i][j] ^ roundKey[10][i][j]
+    func = {
+        16: en.AES128,
+        24: en.AES192,
+        32: en.AES256
+    }
 
-    for q in range(9, 0, -1):
-        result = invShiftRows(result)
-        result = invSubBytes(result)
-        for i in range(0, 4):
-            for j in range(0, 4):
-                result[i][j] = result[i][j] ^ roundKey[q][i][j]
-        result = gInvMixColumns(result)
+    res = [state[y - 16:y] for y in range(16, len(state) + 16, 16)]
 
-    result = invShiftRows(result)
-    result = invSubBytes(result)
-    for i in range(0, 4):
-        for j in range(0, 4):
-            result[i][j] = result[i][j] ^ roundKey[0][i][j]
+    lim = 16 - len(res[-1])
 
-    return result
+    for i in range(0, lim):
+        res[-1] += chr(0x00)
+    
+    key = stringToMat(key)
+
+    for i in res:
+        sub = stringToMat(i)
+        sub = func[lenkey](sub, key)
+        sub = matToString(sub)
+        ret += sub
+
+    return ret
+
+
+def decrypt(state = None, key = None):
+    
+    ret = ""
+
+    while(state == None):
+        print("Please insert your plaintext?")
+        state = input()
+    
+    while(key == None or not (len(key) == 16 or len(key) == 32 or len(key) == 24)):
+        print("Please insert your cipher key? Your key must be of length 16, 24 or 32")
+        key = input()
+    
+    lenkey = len(key)
+
+    func = {
+        16: de.AES128,
+        24: de.AES192,
+        32: de.AES256
+    }
+
+    res = [state[y - 16:y] for y in range(16, len(state) + 16, 16)]
+
+    lim = 16 - len(res[-1])
+
+    for i in range(0, lim):
+        res[-1] += chr(0x00)
+    
+    key = stringToMat(key)
+
+    for i in res:
+        sub = stringToMat(i)
+        sub = func[lenkey](sub, key)
+        sub = matToString(sub)
+        ret += sub
+
+    return ret
