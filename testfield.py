@@ -50,3 +50,13 @@ key256 = [[0x60, 0x3d, 0xeb, 0x10],
           [0x3b, 0x61, 0x08, 0xd7],
           [0x2d, 0x98, 0x10, 0xa3],
           [0x09, 0x14, 0xdf, 0xf4]]
+
+a = keyExpansion256(key256)
+
+for i in range(0, len(a)):
+    for j in range(0, len(a[0])):
+        for k in range(0, len(a[0][0])):
+            print("{:0x}".format(a[i][j][k]), end=" ")
+        print()
+    print("\n")
+print("_____________________________________")

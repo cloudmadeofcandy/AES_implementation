@@ -121,7 +121,17 @@ def keyExpansion192(key):
             retkey.append(list.copy(workingarr))
             index += 1
 
-    return retkey
+    expandedKey = []
+
+    for i in range(0, 13):
+        interkey = []
+        for j in range(0, 4):
+            interkey.append(list.copy(retkey.pop(0)))
+        interkey = np.transpose(interkey)
+        interkey = interkey.tolist()
+        expandedKey.append(interkey)
+
+    return expandedKey
     
 
 def keyExpansion256(key):
@@ -163,5 +173,15 @@ def keyExpansion256(key):
                 workingarr[j] = workingarr[j] ^ retkey[index][j]
             retkey.append(list.copy(workingarr))
             index += 1
-    
-    return retkey
+
+    expandedKey = []
+
+    for i in range(0, 15):
+        interkey = []
+        for j in range(0, 4):
+            interkey.append(list.copy(retkey.pop(0)))
+        interkey = np.transpose(interkey)
+        interkey = interkey.tolist()
+        expandedKey.append(interkey)
+
+    return expandedKey

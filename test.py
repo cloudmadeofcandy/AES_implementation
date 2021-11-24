@@ -2,7 +2,7 @@
 from encryption import *
 import encryption as en
 import decryption as de
-from aesUtils import keyExpansion, rotWord
+from aesUtils import rotWord
 from Sbox import sbox, rbox, rcon
 import numpy as np
 import AES as aes
@@ -179,21 +179,21 @@ mat0 = [[0,0,0,0], [0,0,0,0], [0,0,0,0], [0,0,0,0]]
 #     for j in range(0, 4):
 #         result[i][j] = result[i][j] ^ roundKey[10][i][j]
 
-result = aes.aesEncrypt(state, cypherkey)
+# result = aes.aesEncrypt(state, cypherkey)
 
-for v in range(0, 4):
-    for u in range(0, 4):
-        print("{:0x}".format(result[v][u]), end=" ");
-    print()
-print("___________________")
+# for v in range(0, 4):
+#     for u in range(0, 4):
+#         print("{:0x}".format(result[v][u]), end=" ");
+#     print()
+# print("___________________")
 
-result = aes.aesDecrypt(result, cypherkey)
+# result = aes.aesDecrypt(result, cypherkey)
 
-for v in range(0, 4):
-    for u in range(0, 4):
-        print("{:0x}".format(result[v][u]), end=" ");
-    print()
-print("___________________")
+# for v in range(0, 4):
+#     for u in range(0, 4):
+#         print("{:0x}".format(result[v][u]), end=" ");
+#     print()
+# print("___________________")
 
 # for v in range(0, 4):
 #     for u in range(0, 4):
@@ -218,3 +218,16 @@ print("___________________")
 #         print("{:0x}".format(copyofstate[v][u]), end=" ");
 #     print()
 # print("___________________")
+
+
+b = [[0x8e, 0x73, 0xb0, 0xf7], [0xda, 0x0e, 0x64, 0x52], [0xc8, 0x10, 0xf3, 0x2b], [0x80, 0x90, 0x79, 0xe5], [0x62, 0xf8, 0xea, 0xd2], [0x52, 0x2c, 0x6b, 0x7b]]
+
+a = keyExpansion192(b)
+
+for i in range(0, len(a)):
+    for j in range(0, len(a[0])):
+        for k in range(0, len(a[0][0])):
+            print("{:0x}".format(a[i][j][k]), end=" ")
+        print()
+    print("\n")
+print("_____________________________________")
