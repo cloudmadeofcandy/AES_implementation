@@ -20,7 +20,10 @@
 # https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
 # https://crypto.stackexchange.com/questions/2569/how-does-one-implement-the-inverse-of-aes-mixcolumns
 # https://crypto.stackexchange.com/questions/51951/aes-key-expansion-for-192-bit
+# https://crypto.stackexchange.com/questions/81712/rcon-for-aes-192-and-256
+# https://crypto.stackexchange.com/questions/11096/two-different-approaches-for-key-expansion-using-the-aes-256-algorithm
 
 # FOR CHECKING THE CORRECTNESS OF AES:
 # https://formaestudio.com/rijndaelinspector/archivos/Rijndael_Animation_v4_eng-html5.html
 # https://github.com/chrisveness/crypto/blob/master/test/aes-tests.js
+# https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf (Appendix A.1, A.2, and A.3)

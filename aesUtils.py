@@ -124,3 +124,44 @@ def keyExpansion192(key):
     return retkey
     
 
+def keyExpansion256(key):
+    retkey = []
+
+    #key: 4 x 8 array
+
+    for i in key:
+        retkey.append(list.copy(i))
+
+    for i in range(0, 7):
+        rconarr = [rcon[i], 0, 0, 0]
+        index = len(retkey) - 8
+        k8n_8 = list.copy(retkey[index])
+        workingarr = list.copy(retkey[-1])
+        workingarr = rotWord(workingarr)
+        for q in range(0, 4):
+            workingarr[q] = sbox[workingarr[q]]
+        for j in range(0, len(workingarr)):
+            workingarr[j] = workingarr[j] ^ k8n_8[j] ^ rconarr[j]
+        retkey.append(list.copy(workingarr))
+        index += 1
+        for k in range(0, 3):
+            for j in range(0, 4):
+                workingarr[j] = workingarr[j] ^ retkey[index][j]
+            retkey.append(list.copy(workingarr))
+            index += 1
+
+        for q in range(0, 4):
+            workingarr[q] = sbox[workingarr[q]]
+
+        for j in range(0, 4):
+            workingarr[j] = workingarr[j] ^ retkey[index][j]
+        retkey.append(list.copy(workingarr))
+        index += 1
+
+        for k in range(0, 3):
+            for j in range(0, 4):
+                workingarr[j] = workingarr[j] ^ retkey[index][j]
+            retkey.append(list.copy(workingarr))
+            index += 1
+    
+    return retkey
