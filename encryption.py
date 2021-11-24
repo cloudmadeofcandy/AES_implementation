@@ -1,5 +1,6 @@
 from aesUtils import *
 from Sbox import sbox
+import numpy as np
 
 def subBytes(r):
     for i in range(0, 4):
@@ -47,3 +48,77 @@ def gMixColumns(d):
     r1 = r1.tolist()
     return r1
 
+def AES128(state, cypherkey):
+    roundKey = keyExpansion128(cypherkey) # 11 x (4 x 4) array
+
+    result = list.copy(state)
+
+    for i in range(0, 4):
+        for j in range(0, 4):
+            result[i][j] = state[i][j] ^ roundKey[0][i][j]
+
+    for q in range(1, 10):
+        result = subBytes(result)
+        result = shiftRows(result)
+        result = gMixColumns(result)
+        for i in range(0, 4):
+            for j in range(0, 4):
+                result[i][j] = result[i][j] ^ roundKey[q][i][j]
+
+    result = subBytes(result)
+    result = shiftRows(result)
+    for i in range(0, 4):
+        for j in range(0, 4):
+            result[i][j] = result[i][j] ^ roundKey[10][i][j]
+
+    return result
+
+def AES192(state, cypherkey):
+    roundKey = keyExpansion192(cypherkey) # 11 x (4 x 4) array
+
+    result = list.copy(state)
+
+    for i in range(0, 4):
+        for j in range(0, 4):
+            result[i][j] = state[i][j] ^ roundKey[0][i][j]
+
+    for q in range(1, 12):
+        result = subBytes(result)
+        result = shiftRows(result)
+        result = gMixColumns(result)
+        for i in range(0, 4):
+            for j in range(0, 4):
+                result[i][j] = result[i][j] ^ roundKey[q][i][j]
+
+    result = subBytes(result)
+    result = shiftRows(result)
+    for i in range(0, 4):
+        for j in range(0, 4):
+            result[i][j] = result[i][j] ^ roundKey[12][i][j]
+
+    return result
+
+def AES256(state, cypherkey):
+    roundKey = keyExpansion256(cypherkey) # 11 x (4 x 4) array
+
+    result = list.copy(state)
+
+    for i in range(0, 4):
+        for j in range(0, 4):
+            result[i][j] = state[i][j] ^ roundKey[0][i][j]
+
+    for q in range(1, 14):
+        result = subBytes(result)
+        result = shiftRows(result)
+        result = gMixColumns(result)
+        for i in range(0, 4):
+            for j in range(0, 4):
+                result[i][j] = result[i][j] ^ roundKey[q][i][j]
+
+    result = subBytes(result)
+    result = shiftRows(result)
+    for i in range(0, 4):
+        for j in range(0, 4):
+            result[i][j] = result[i][j] ^ roundKey[14][i][j]
+
+    return result

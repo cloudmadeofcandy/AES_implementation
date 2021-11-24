@@ -185,3 +185,31 @@ def keyExpansion256(key):
         expandedKey.append(interkey)
 
     return expandedKey
+
+def stringToMat(s):
+    
+    ret = []
+    interkey = []
+
+    for i in range(0, len(s)):
+        interkey.append(ord(s[i]))
+        if ((i % 4 == 3)):
+            ret.append(interkey)
+            interkey = []
+
+    ret = np.transpose(ret)
+    ret = ret.tolist()
+    return ret
+
+def matToString(s):
+
+    s = np.transpose(s)
+    s = np.ravel(s)
+    s = s.tolist()
+
+    retString = ""
+
+    for i in s:
+        retString += chr(i);
+    
+    return retString
