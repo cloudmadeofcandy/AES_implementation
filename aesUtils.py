@@ -60,7 +60,7 @@ def rotWord(r):
     r[0], r[1], r[2], r[3] = r[1], r[2], r[3], r[0]
     return r
 
-def keyExpansion(key):
+def keyExpansion128(key):
     retkey = []
     retkey.append(list.copy(key))
     for i in range(0, 10):
@@ -91,6 +91,35 @@ def keyExpansion(key):
         #         print("{:0x}".format(newkey[v][u]), end=" ");
         #     print()
         # print("______________________")
+
+    return retkey
+
+
+def keyExpansion192(key):
+    retkey = []
+
+    #key: 4 x 6 array
+
+    for i in key:
+        retkey.append(list.copy(i))
+
+    for i in range(0, 8):
+        rconarr = [rcon[i], 0, 0, 0]
+        index = len(retkey) - 6
+        k6n_6 = list.copy(retkey[index])
+        workingarr = list.copy(retkey[-1])
+        workingarr = rotWord(workingarr)
+        for q in range(0, 4):
+            workingarr[q] = sbox[workingarr[q]]
+        for j in range(0, len(workingarr)):
+            workingarr[j] = workingarr[j] ^ k6n_6[j] ^ rconarr[j]
+        retkey.append(list.copy(workingarr))
+        index += 1
+        for k in range(0, 5):
+            for j in range(0, 4):
+                workingarr[j] = workingarr[j] ^ retkey[index][j]
+            retkey.append(list.copy(workingarr))
+            index += 1
 
     return retkey
     

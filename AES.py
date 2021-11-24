@@ -1,13 +1,13 @@
 
 from encryption import gMixColumns, shiftRows, subBytes
 from decryption import gInvMixColumns, invShiftRows, invSubBytes
-from aesUtils import keyExpansion, rotWord
+from aesUtils import keyExpansion128, rotWord
 from Sbox import sbox, rbox, rcon
 import numpy as np
 
 
-def aesEncrypt(state, cypherkey):
-    roundKey = keyExpansion(cypherkey) # 11 x (4 x 4) array
+def aesEncrypt128(state, cypherkey):
+    roundKey = keyExpansion128(cypherkey) # 11 x (4 x 4) array
 
     result = list.copy(state)
 
@@ -31,9 +31,9 @@ def aesEncrypt(state, cypherkey):
 
     return result
 
-def aesDecrypt(state, cypherkey):
+def aesDecrypt128(state, cypherkey):
     
-    roundKey = keyExpansion(cypherkey) # 11 x (4 x 4) array
+    roundKey = keyExpansion128(cypherkey) # 11 x (4 x 4) array
 
     result = list.copy(state)
 
