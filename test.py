@@ -253,4 +253,12 @@ b = [[0x8e, 0x73, 0xb0, 0xf7],
      [0x62, 0xf8, 0xea, 0xd2], 
      [0x52, 0x2c, 0x6b, 0x7b]]
 
-# print(stringToMat("abcdefghijklmnop"))
+
+a = "abcdefghiklmnopqrstuvwxyz0123456789"
+b = "0123456789abcdef"
+
+c = aes.encrypt(a, b)
+d = aes.decrypt(c, b)
+print(len(a))
+print((c))
+print(d)
