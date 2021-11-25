@@ -213,3 +213,10 @@ def matToString(s):
         retString += chr(i);
     
     return retString
+
+def _4x4print(mat):
+    for v in range(0, 4):
+        for u in range(0, 4):
+            print("{:0x}".format(mat[v][u]), end=" ");
+        print()
+    print("___________________")
