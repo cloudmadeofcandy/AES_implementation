@@ -73,9 +73,8 @@ def AES128(state, cypherkey):
 
 
 def AES192(state, cypherkey):
-    
     roundKey = keyExpansion192(cypherkey) # 11 x (4 x 4) array
-
+    
     result = list.copy(state)
 
     for i in range(0, 4):
@@ -100,7 +99,6 @@ def AES192(state, cypherkey):
 
 
 def AES256(state, cypherkey):
-    
     roundKey = keyExpansion256(cypherkey) # 11 x (4 x 4) array
 
     result = list.copy(state)

@@ -255,10 +255,10 @@ b = [[0x8e, 0x73, 0xb0, 0xf7],
 
 
 a = "abcdefghiklmnopqrstuvwxyz0123456789"
-b = "0123456789abcdef"
+b = "1a1a1a1a1a1a1a1a1a1a1a1a"
 
 c = aes.encrypt(a, b)
 d = aes.decrypt(c, b)
-print(len(a))
+
 print((c))
 print(d)

@@ -98,7 +98,7 @@ def keyExpansion128(key):
 def keyExpansion192(key):
     retkey = []
 
-    #key: 4 x 6 array
+    #key: 6 x 4 array
 
     for i in key:
         retkey.append(list.copy(i))
@@ -137,7 +137,7 @@ def keyExpansion192(key):
 def keyExpansion256(key):
     retkey = []
 
-    #key: 4 x 8 array
+    #key: 8 x 4 array
 
     for i in key:
         retkey.append(list.copy(i))

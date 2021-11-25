@@ -31,10 +31,12 @@ def encrypt(state = None, key = None):
         res[-1] += chr(0x00)
     
     key = stringToMat(key)
+    cypherkey = np.transpose(key)
+    cypherkey = cypherkey.tolist()
 
     for i in res:
         sub = stringToMat(i)
-        sub = func[lenkey](sub, key)
+        sub = func[lenkey](sub, cypherkey)
         sub = matToString(sub)
         ret += sub
 
@@ -69,10 +71,12 @@ def decrypt(state = None, key = None):
         res[-1] += chr(0x00)
     
     key = stringToMat(key)
+    cypherkey = np.transpose(key)
+    cypherkey = cypherkey.tolist()
 
     for i in res:
         sub = stringToMat(i)
-        sub = func[lenkey](sub, key)
+        sub = func[lenkey](sub, cypherkey)
         sub = matToString(sub)
         ret += sub
 
