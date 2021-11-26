@@ -22,6 +22,7 @@
 # https://crypto.stackexchange.com/questions/51951/aes-key-expansion-for-192-bit
 # https://crypto.stackexchange.com/questions/81712/rcon-for-aes-192-and-256
 # https://crypto.stackexchange.com/questions/11096/two-different-approaches-for-key-expansion-using-the-aes-256-algorithm
+# https://www.baeldung.com/java-aes-encryption-decryption
 
 # FOR CHECKING THE CORRECTNESS OF AES:
 # https://formaestudio.com/rijndaelinspector/archivos/Rijndael_Animation_v4_eng-html5.html
