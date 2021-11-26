@@ -2,7 +2,7 @@
 from encryption import *
 import encryption as en
 import decryption as de
-from aesUtils import rotWord
+from aesUtils import _4x4print
 from Sbox import sbox, rbox, rcon
 import numpy as np
 import AES as aes
@@ -155,12 +155,12 @@ hello = [[0x19, 0x3d, 0xe3, 0xbe], [0xa0, 0xf4, 0xe2, 0x2b], [0x9a, 0xc6, 0x8d, 
 rev = [[0xd4,0xe0,0xb8,0x1e],[0x27,0xbf,0xb4,0x41],[0x11,0x98,0x5d,0x52],[0xae,0xf1,0xe5,0x30]]
 
 
-cypherkey192 = [[0x2b, 0x28, 0xab, 0x09],
-             [0x7e, 0xae, 0xf7, 0xcf],
-             [0x15, 0xd2, 0x15, 0x4f],
-             [0x16, 0xa6, 0x88, 0x3c],
-             [0xf6, 0x30, 0x98, 0x07],
-             [0xa8, 0x8d, 0xa2, 0x34]]
+cypherkey192=[[0x2b, 0x28, 0xab, 0x09],
+              [0x7e, 0xae, 0xf7, 0xcf],
+              [0x15, 0xd2, 0x15, 0x4f],
+              [0x16, 0xa6, 0x88, 0x3c],
+              [0xf6, 0x30, 0x98, 0x07],
+              [0xa8, 0x8d, 0xa2, 0x34]]
 
 cypherkey = [[0x2b, 0x28, 0xab, 0x09],
              [0x7e, 0xae, 0xf7, 0xcf],
@@ -253,12 +253,48 @@ b = [[0x8e, 0x73, 0xb0, 0xf7],
      [0x62, 0xf8, 0xea, 0xd2], 
      [0x52, 0x2c, 0x6b, 0x7b]]
 
+# b = "0123456789abcdef"
 
-a = "abcdefghiklmnopqrstuvwxyz0123456789"
-b = "1a1a1a1a1a1a1a1a1a1a1a1a"
+# c = stringToMat(b)
+# # d = keyExpansion128(c)
+# for k in range(0, len(d)):
+#     for v in range(0, len(d[0])):
+#         for u in range(0, len(d[0][0])):
+#             print("{:0x}".format(d[k][v][u]), end=" ");
+#         print()
+#     print("___________________")
 
-c = aes.encrypt(a, b)
-d = aes.decrypt(c, b)
+# d = aes.encrypt(b,b)
+# d = stringToMat(d)
+# _4x4print(d)
+# s = np.transpose(d)
+# s = np.ravel(s)
+# s = s.tolist()
 
-print((c))
+# retString = ""
+
+# for i in s:
+#     retString += chr(i);
+#     print(i)
+
+# a = stringToMat("0123456789abcdef")
+# b = matToString(a)
+# c = en.AES128(a, a)
+# d = keyExpansion192(b)
+# for k in range(0, len(d)):
+    # for v in range(0, len(d[0])):
+    #     for u in range(0, len(d[0][0])):
+    #         print("{:0x}".format(d[k][v][u]), end=" ");
+    #     print()
+    # print("___________________")
+
+
+str1 = "0123456789abcdef"
+str2 = "0123456789abcdef"
+d = aes.encrypt(str1, str1)
+# for v in range(0, len(d)):
+#     for u in range(0, len(d[0])):
+#         print("{:0x}".format(d[v][u]), end=" ");
+#     print()
+# print("___________________")
 print(d)
