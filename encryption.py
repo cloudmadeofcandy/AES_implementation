@@ -49,6 +49,7 @@ def gMixColumns(d):
     return r1
 
 def AES128(state, cypherkey):
+    print("AES128")
     roundKey = keyExpansion128(cypherkey) # 11 x (4 x 4) array
 
     result = list.copy(state)
@@ -74,7 +75,7 @@ def AES128(state, cypherkey):
     return result
 
 def AES192(state, cypherkey):
-
+    print("AES192")
     roundKey = keyExpansion192(cypherkey) # 11 x (4 x 4) array
 
     result = list.copy(state)
@@ -100,7 +101,7 @@ def AES192(state, cypherkey):
     return result
 
 def AES256(state, cypherkey):
-
+    print("AES256")
     roundKey = keyExpansion256(cypherkey) # 11 x (4 x 4) array
 
     result = list.copy(state)

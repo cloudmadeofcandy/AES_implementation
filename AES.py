@@ -1,4 +1,4 @@
-from aesUtils import matToString, stringToMat
+from aesUtils import _4x4print, matToString, stringToMat
 import encryption as en
 import decryption as de
 import numpy as np
@@ -31,9 +31,11 @@ def encrypt(state = None, key = None):
         res[-1] += chr(0x00)
     
     key = stringToMat(key)
-    cypherkey = np.transpose(key)
-    cypherkey = cypherkey.tolist()
-
+    if (lenkey != 16):
+        cypherkey = np.transpose(key)
+        cypherkey = cypherkey.tolist()
+    else: cypherkey = key
+    
     for i in res:
         sub = stringToMat(i)
         sub = func[lenkey](sub, cypherkey)
@@ -71,8 +73,10 @@ def decrypt(state = None, key = None):
         res[-1] += chr(0x00)
     
     key = stringToMat(key)
-    cypherkey = np.transpose(key)
-    cypherkey = cypherkey.tolist()
+    if (lenkey != 16):
+        cypherkey = np.transpose(key)
+        cypherkey = cypherkey.tolist()
+    else: cypherkey = key
 
     for i in res:
         sub = stringToMat(i)
