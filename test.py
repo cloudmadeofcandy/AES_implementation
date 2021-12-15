@@ -297,4 +297,3 @@ d = aes.encrypt(str1, str1)
 #         print("{:0x}".format(d[v][u]), end=" ");
 #     print()
 # print("___________________")
-print(d)
