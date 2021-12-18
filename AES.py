@@ -3,7 +3,7 @@ import encryption as en
 import decryption as de
 import numpy as np
 
-def encrypt(state = None, key = None):
+def encrypt(state = None, key = None, b64 = None, mode = "ECB"):
     
     ret = ""
 
@@ -45,7 +45,7 @@ def encrypt(state = None, key = None):
     return ret
 
 
-def decrypt(state = None, key = None):
+def decrypt(state = None, key = None, b64 = None, mode = "ECB"):
     
     ret = ""
 
