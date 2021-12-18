@@ -210,9 +210,16 @@ def matToString(s):
     retString = ""
 
     for i in s:
-        retString += chr(i);
+        retString += chr(i)
     
     return retString
+
+def xorMatrix(a, b):
+    ret = [[0 for i in range(len(a[0]))] for k in range(len(a))]
+    for i in range(len(a)):
+        for j in range(len(a[0])):
+            ret[i][j] = a[i][j] ^ b[i][j]
+    return ret
 
 def _4x4print(mat):
     for v in range(0, 4):

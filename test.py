@@ -6,6 +6,7 @@ from aesUtils import _4x4print
 from Sbox import sbox, rbox, rcon
 import numpy as np
 import AES as aes
+import base64 as b64
 
 
 # ennui = np.array([[0xd4],[0xbf],[0x5d],[0x30]])
@@ -289,12 +290,9 @@ b = [[0x8e, 0x73, 0xb0, 0xf7],
     # print("___________________")
 
 
-str1 = "0123456789abcdef"
+str1 = "0123456789abcdef0123456789abcdef0123456789abcdef"
 str2 = "0123456789abcdef"
-d = aes.encrypt(str1, str1)
-# for v in range(0, len(d)):
-#     for u in range(0, len(d[0])):
-#         print("{:0x}".format(d[v][u]), end=" ");
-#     print()
-# print("___________________")
+d = aes.encrypt(state = str1, key = str2, mode = "CBC", IV = str2)
+e = aes.decrypt(state = d, key = str2, mode = "CBC", IV = str2)
 print(d)
+print(e)

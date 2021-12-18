@@ -1,9 +1,10 @@
-from aesUtils import _4x4print, matToString, stringToMat
+from aesUtils import xorMatrix, matToString, stringToMat
 import encryption as en
 import decryption as de
 import numpy as np
+import base64 as b64
 
-def encrypt(state = None, key = None, b64 = None, mode = "ECB"):
+def encrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None):
     
     ret = ""
 
@@ -15,6 +16,11 @@ def encrypt(state = None, key = None, b64 = None, mode = "ECB"):
         print("Please insert your cipher key? Your key must be of length 16, 24 or 32")
         key = input()
     
+    if (b64 == True):
+        state = state.encode("ascii")
+        state = b64.b64decode(state)
+        state = state.decode("ascii")
+
     lenkey = len(key)
 
     func = {
@@ -36,16 +42,27 @@ def encrypt(state = None, key = None, b64 = None, mode = "ECB"):
         cypherkey = cypherkey.tolist()
     else: cypherkey = key
     
-    for i in res:
-        sub = stringToMat(i)
-        sub = func[lenkey](sub, cypherkey)
-        sub = matToString(sub)
-        ret += sub
+    if (mode == "CBC"):
+        temp = stringToMat(IV)
+        for i in res:
+            sub = stringToMat(i)
+            sub = xorMatrix(sub, temp)
+            sub = func[lenkey](sub, cypherkey)
+            temp = sub
+            sub = matToString(sub)
+            ret += sub
+
+    else: 
+        for i in res:
+            sub = stringToMat(i)
+            sub = func[lenkey](sub, cypherkey)
+            sub = matToString(sub)
+            ret += sub
 
     return ret
 
 
-def decrypt(state = None, key = None, b64 = None, mode = "ECB"):
+def decrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None):
     
     ret = ""
 
@@ -78,10 +95,25 @@ def decrypt(state = None, key = None, b64 = None, mode = "ECB"):
         cypherkey = cypherkey.tolist()
     else: cypherkey = key
 
-    for i in res:
-        sub = stringToMat(i)
-        sub = func[lenkey](sub, cypherkey)
-        sub = matToString(sub)
-        ret += sub
+    if (mode == "CBC"):
+        temp = stringToMat(IV)
+        for i in res:
+            sub = stringToMat(i)
+            sub = func[lenkey](sub, cypherkey)
+            sub = xorMatrix(sub, temp)
+            sub = matToString(sub)
+            temp = stringToMat(i)
+            ret += sub
+    else:
+        for i in res:
+            sub = stringToMat(i)
+            sub = func[lenkey](sub, cypherkey)
+            sub = matToString(sub)
+            ret += sub
+
+    if (b64 == True):
+        ret = ret.encode("ascii")
+        ret = b64.b64encode(ret)
+        ret = ret.decode("ascii")
 
     return ret
