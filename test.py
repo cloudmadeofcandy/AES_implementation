@@ -290,9 +290,12 @@ b = [[0x8e, 0x73, 0xb0, 0xf7],
     # print("___________________")
 
 
-str1 = "0123456789abcdef0123456789abcdef0123456789abcdef"
-str2 = "0123456789abcdef"
-d = aes.encrypt(state = str1, key = str2, mode = "CBC", IV = str2)
-e = aes.decrypt(state = d, key = str2, mode = "CBC", IV = str2)
+str1 = "Ngay gio Bac ve ben dai duong, ky niem thuo nao khuc song sau con vuong"
+str2 = "abcdef0123456789"
+str3 = "0123456789abcdef"
+d = aes.encrypt(state = str1, key = str2, mode = "CFB", IV = str3)
+e = aes.decrypt(state = d, key = str2, mode = "CFB", IV = str3)
 print(d)
+print("\n______________________\n")
 print(e)
+print("\n______________________\n")
