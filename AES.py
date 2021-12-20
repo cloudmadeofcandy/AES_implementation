@@ -1,8 +1,7 @@
-from aesUtils import xorMatrix, matToString, stringToMat, matToHexa, hexaToMat, _4x4print
+from aesUtils import xorMatrix, matToString, stringToMat, matToHexa, hexaToMat, _4x4print, b64d, b64e
 import encryption as en
 import decryption as de
 import numpy as np
-import base64 as b64
 
 def encrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None, hexa = False):
     
@@ -17,9 +16,7 @@ def encrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None, hexa
         key = input()
     
     if (b64 == True):
-        state = state.encode("ascii")
-        state = b64.b64decode(state)
-        state = state.decode("ascii")
+        state = b64e(state)
 
     lenkey = len(key)
 
@@ -156,9 +153,9 @@ def decrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None, hexa
             sub = matToString(sub)
             ret += sub
 
+    ret = ret.rstrip(chr(0x00))
+
     if (b64 == True):
-        ret = ret.encode("ascii")
-        ret = b64.b64encode(ret)
-        ret = ret.decode("ascii")
+        ret = b64d(ret)
 
     return ret

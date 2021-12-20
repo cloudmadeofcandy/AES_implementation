@@ -1,6 +1,15 @@
 import numpy as np
 from Sbox import sbox, rbox, rcon
+import base64
 
+def b64e(s):
+    return base64.b64encode(s.encode()).decode()
+
+
+def b64d(s):
+    return base64.b64decode(s).decode()
+
+    
 def mul2(r):
     b = [0 for i in range(4)]
     for c in range(0, 4):
