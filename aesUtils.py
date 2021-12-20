@@ -201,6 +201,9 @@ def stringToMat(s):
     ret = ret.tolist()
     return ret
 
+def hexaToMat(s):
+    pass
+
 def matToString(s):
 
     s = np.transpose(s)
@@ -211,6 +214,21 @@ def matToString(s):
 
     for i in s:
         retString += chr(i)
+    
+    return retString
+
+def matToHexa(s):
+    s = np.transpose(s)
+    s = np.ravel(s)
+    s = s.tolist()
+
+    retString = ""
+
+    for i in s:
+        temp = hex(i).lstrip("0x").rstrip("L")
+        if (len(temp) == 1):
+            temp = "0" + temp
+        retString += temp
     
     return retString
 

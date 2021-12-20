@@ -1,10 +1,10 @@
-from aesUtils import xorMatrix, matToString, stringToMat
+from aesUtils import xorMatrix, matToString, stringToMat, matToHexa, hexaToMat, _4x4print
 import encryption as en
 import decryption as de
 import numpy as np
 import base64 as b64
 
-def encrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None):
+def encrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None, hexa = False):
     
     ret = ""
 
@@ -27,6 +27,16 @@ def encrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None):
         16: en.AES128,
         24: en.AES192,
         32: en.AES256
+    }
+
+    matConversion = {
+        True: matToHexa,
+        False: matToString
+    }
+
+    strConversion = {
+        False: stringToMat,
+        True: hexaToMat
     }
 
     res = [state[y - 16:y] for y in range(16, len(state) + 16, 16)]
@@ -52,6 +62,20 @@ def encrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None):
             sub = matToString(sub)
             ret += sub
 
+    elif (mode == "CFB"):
+        temp = stringToMat(IV)
+        for i in res:
+            sub = stringToMat(i)
+            temp1 = func[lenkey](temp, cypherkey)
+            sub = xorMatrix(sub, temp1)
+            temp = sub
+            sub = matToString(sub)
+            ret += sub
+
+
+    elif (mode == "OFB"):
+        pass
+
     else: 
         for i in res:
             sub = stringToMat(i)
@@ -62,7 +86,7 @@ def encrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None):
     return ret
 
 
-def decrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None):
+def decrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None, hexa = False):
     
     ret = ""
 
@@ -80,6 +104,12 @@ def decrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None):
         16: de.AES128,
         24: de.AES192,
         32: de.AES256
+    }
+
+    enfunc = {
+        16: en.AES128,
+        24: en.AES192,
+        32: en.AES256
     }
 
     res = [state[y - 16:y] for y in range(16, len(state) + 16, 16)]
@@ -104,6 +134,21 @@ def decrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None):
             sub = matToString(sub)
             temp = stringToMat(i)
             ret += sub
+    
+    elif (mode == "CFB"):
+        temp = stringToMat(IV)
+        for i in res:
+            sub = stringToMat(i)
+            temp = enfunc[lenkey](temp, cypherkey)
+            sub = xorMatrix(sub, temp)
+            temp = stringToMat(i)
+            sub = matToString(sub)
+            ret += sub
+
+
+    elif (mode == "OFB"):
+        pass
+
     else:
         for i in res:
             sub = stringToMat(i)
