@@ -290,12 +290,22 @@ b = [[0x8e, 0x73, 0xb0, 0xf7],
 
 
 str1 = "0123456789abcdef"
-str2 = "abcdef0123456789"
+str2 = "0123456789abcdef"
 str3 = "0123456789abcdef"
-d = aes.encrypt(state = str1, key = str2, mode = "CBC", IV = str3, b64 = False)
-e = aes.decrypt(state = d, key = str2, mode = "CBC", IV = str3, b64 = False)
+key="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b"
+iv="A609B38DF3B1133DDDFF2718BA09565E"
+plain="ae2d8a571e03ac9c9eb76fac45af8e51"
+cipher="fcc28b8d4c63837c09e81700c1100401"
+key1 = hexaToMat(key)
+key1 = matToString(key1)
+iv = hexaToMat(iv)
+iv = matToString(iv)
+plain = hexaToMat(plain)
+plain = matToString(plain)
+d = aes.encrypt(state = plain, key = key1, mode = "OFB", IV = iv, b64 = False, hexa = "True")
+#e = aes.decrypt(state = d, key = str2, mode = "CFB", IV = str3, b64 = False, hexa = False)
 print(d)
-print("\n______________________\n")
-print(e)
-print("\n______________________\n")
+# print("\n______________________\n")
+# #print(e)
+# print("\n______________________\n")
 print()

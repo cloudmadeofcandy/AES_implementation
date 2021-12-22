@@ -1,0 +1,90 @@
+<html>
+<!-- encrypt(state = None, key = None, b64 = False, mode = "ECB", IV = None, hexa = False) -->
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}">
+</head>
+
+<body>
+    <div class="containers">
+        <h1 style="position: relative; text-align: center;">Implementation of AES algorithm</h1>
+        <form id = qw>
+            <input name="state" , type="text" , placeholder="Plaintext">
+            <br>
+            <input name="key" , type="text" , placeholder="Cipherkey">
+            <br>
+            <input name="IV" , type="text" , placeholder="Initialize Vector", class = "IV">
+            <br class = "IV">
+            <input name="cipher", id = "cipher" , type="text" , placeholder="Ciphertext">
+            <br>
+            <input name="hexain" , type="checkbox" , value="True"> Input as hex string
+            <br>
+            <input name="hexakey" , type="checkbox" , value="True"> Key as hex string
+            <br>
+            <input name="hexaIV", id = "dIV" type="checkbox" , value="True", class = "IV">
+            <label for = "dIV", class = "IV">IV as hex string</label>
+            <br class = "IV">
+            <input name="hexaout" , type="checkbox" , value="True"> Output as hex string
+            <br>
+            <input name="b64" , type="checkbox" , value="True"> Uses base64 during encryption/decryption
+            <br>
+            <input name="mode" , type="radio" , value="EBC", onclick="hideIV('disappear')"> Electronic Code Book
+            <input name="mode" , type="radio" , value="CBC", onclick="hideIV('appear')"> Cipher Block Chaining
+            <input name="mode" , type="radio" , value="CFB", onclick="hideIV('appear')"> Cipher Feedback
+            <input name="mode" , type="radio" , value="OFB", onclick="hideIV('appear')"> Output Feedback
+            <br>
+            <div id = submit, style="display: flex; justify-content: right;">
+                <input type="button" , class="submit1" , value="Encrypt" , onclick="encrypt()">
+                <input type="button" , class="submit1" , value="Decrypt" , onclick="decrypt()">
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    hideIV("disappear")
+
+    function encrypt() {
+        URL = "/encrypt"
+        let form = document.getElementById("qw")
+        fetch(URL, {
+            method:'post', 
+            body: new FormData(form)
+        }).then(response => response.json())
+        .then(response => response.cypherkey)
+        .then(response => returnResult(response))
+    }
+
+    function decrypt() {
+        URL = "/decrypt"
+        let form = document.getElementById("qw")
+        fetch(URL, {
+            method:'post', 
+            body: new FormData(form)
+        }).then(response => response.json())
+        .then(response => response.cypherkey)
+        .then(response => returnResult(response))
+    }
+
+    function returnResult(s) {
+        output = document.getElementById("cipher")
+        output.value = s
+    }
+
+    function hideIV(s) {
+        if (s == "disappear"){
+            ivInput = document.getElementsByClassName("IV")
+            for (i of ivInput) {
+                i.style.display = "none"
+            }
+        }
+        else {
+            ivInput = document.getElementsByClassName("IV")
+            for (i of ivInput) {
+                i.style.display = "inline"
+            }  
+        }
+    }
+</script>
+
+</html>

@@ -211,7 +211,20 @@ def stringToMat(s):
     return ret
 
 def hexaToMat(s):
-    pass
+    ret = []
+    interkey = []
+
+    s = [s[y - 2:y] for y in range(2, len(s) + 2, 2)]
+
+    for i in range(0, len(s)):
+        interkey.append(int(s[i], 16))
+        if ((i % 4 == 3)):
+            ret.append(interkey)
+            interkey = []
+
+    ret = np.transpose(ret)
+    ret = ret.tolist()
+    return ret
 
 def matToString(s):
 
@@ -234,6 +247,8 @@ def matToHexa(s):
     retString = ""
 
     for i in s:
+        if(i == 0):
+            retString += "00"
         temp = hex(i).lstrip("0x").rstrip("L")
         if (len(temp) == 1):
             temp = "0" + temp
