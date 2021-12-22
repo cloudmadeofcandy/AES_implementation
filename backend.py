@@ -18,6 +18,3 @@ def Adecrypt():
    d = {i : request.form.get(i, "False") for i in info}  
    e = decrypt(**d)
    return {"cypherkey": e}
-
-if __name__ == '__main__':
-   app.run()
