@@ -54,8 +54,7 @@
             method:'post', 
             body: new FormData(form)
         }).then(response => response.json())
-        .then(response => response.cypherkey)
-        .then(response => returnResult(response))
+        .then(response => returnResult(response.cypherkey, response.time))
     }
 
     function decrypt() {
@@ -65,13 +64,15 @@
             method:'post', 
             body: new FormData(form)
         }).then(response => response.json())
-        .then(response => response.cypherkey)
-        .then(response => returnResult(response))
+        .then(response => returnResult(response.cypherkey, response.time))
     }
 
-    function returnResult(s) {
+    function returnResult(s, s1) {
+        console.log(s)
         output = document.getElementById("cipher")
         output.value = s
+        time = document.getElementsByTagName("h1")
+        time[0].innerHTML = s1
     }
 
     function hideIV(s) {
