@@ -294,18 +294,18 @@ str2 = "0123456789abcdef"
 str3 = "0123456789abcdef"
 key="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b"
 iv="A609B38DF3B1133DDDFF2718BA09565E"
-plain="ae2d8a571e03ac9c9eb76fac45af8e51"
+plain="0123456789abcdef"
 cipher="fcc28b8d4c63837c09e81700c1100401"
-key1 = hexaToMat(key)
-key1 = matToString(key1)
-iv = hexaToMat(iv)
-iv = matToString(iv)
-plain = hexaToMat(plain)
-plain = matToString(plain)
-d = aes.encrypt(state = plain, key = key1, mode = "OFB", IV = iv, b64 = False, hexa = "True")
-#e = aes.decrypt(state = d, key = str2, mode = "CFB", IV = str3, b64 = False, hexa = False)
+# key1 = hexaToMat(key)
+# key1 = matToString(key1)
+# iv = hexaToMat(iv)
+# iv = matToString(iv)
+# plain = hexaToMat(plain)
+# plain = matToString(plain)
+d = aes.encrypt(state = plain, key = plain, hexakey = "False")
+e = aes.decrypt(state = d, key = plain, hexakey = "False")
 print(d)
 # print("\n______________________\n")
 # #print(e)
 # print("\n______________________\n")
-print()
+print(e)
