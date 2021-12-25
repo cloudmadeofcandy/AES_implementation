@@ -1,4 +1,9 @@
 # AES_implementation
+
+If you wish to encrypt or decrypt strings, I did push the app onto heroku :3
+
+link: http://floating-ridge-18343.herokuapp.com/
+
 AES Encryption and Decryption implementation for CT303 - Basis of Information Integrity and Security - Academy of Cryptography Techniques.
 
 To use the program, please pay attention to the 2 functions/APIs in file AES.py.
