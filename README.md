@@ -4,7 +4,7 @@
 
 ~~link: http://floating-ridge-18343.herokuapp.com/~~
 
-Since December 2022, Heroku now no longer allow free dynos, subsequently every app on Heroku free plan are defuncted.
+Since December 2022, Heroku now no longer allows free dynos, subsequently every app on Heroku free plan is defuncted.
 
 I have deployed the app on Vercel. link: https://quansaesimplementation.vercel.app/
 
