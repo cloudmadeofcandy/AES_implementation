@@ -1,8 +1,12 @@
 # AES_implementation
 
-If you wish to encrypt or decrypt strings, I did push the app onto heroku :3
+~~If you wish to encrypt or decrypt strings, I did push the app onto heroku :3~~
 
-link: http://floating-ridge-18343.herokuapp.com/
+~~link: http://floating-ridge-18343.herokuapp.com/~~
+
+Since December 2022, Heroku now no longer allow free dynos, subsequently every app on Heroku free plan are defuncted.
+
+I have deployed the app on Vercel. link: https://quansaesimplementation.vercel.app/
 
 AES Encryption and Decryption implementation for CT303 - Basis of Information Integrity and Security - Academy of Cryptography Techniques.
 
